@@ -1,1 +1,1 @@
-ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBuHMb4Pz5XhkL4qalU39jMIVOmA0FBt48/XUC6klCGe u0_a1165@localhost
+Get-Acl "$env:USERPROFILE\.ssh\authorized_keys" | Format-List
