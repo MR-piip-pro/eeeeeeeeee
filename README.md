@@ -17,7 +17,7 @@ C:\Users\Him Rf\.ssh\authorized_keys
 
 C:\ProgramData\ssh\administrators_authorized_keys
 
-ولهذا كان الهاتف يرسل المفتاح الصحيح، لكن Windows يرفضه.
+ولهذا كان الهاتف يرسل المفتاح الصحيح، لكن Windows يرفضه.Test-Path "C:\ProgramData\ssh\administrators_authorized_keys"
 
 نصلحها الآن
 
@@ -48,3 +48,4 @@ ssh 'Him Rf'@192.168.11.101
 إذا نجح كل شيء، سيدخل SSH مباشرة بدون طلب كلمة المرور. 🎯
 
 إذا طلب كلمة المرور مرة أخرى، لا تدخلها؛ أرسل لي فقط ما يظهر، وسنكمل من النقطة نفسها.
+Test-Path "C:\ProgramData\ssh\administrators_authorized_keys"
