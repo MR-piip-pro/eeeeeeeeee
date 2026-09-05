@@ -587,3 +587,155 @@ text
 
 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBuHMb4Pz5XhkL4qalU39jMIVOmA0FBt48/XUC6klCGe u0_a1165@localhost
 
+
+
+
+
+
+
+
+نعم، فهمت قصدك الآن. أنت عالق تحديدًا في إنشاء مجلد .ssh وملف authorized_keys داخل Windows، وتريد أن تعرف هل الأمر يُنفَّذ في Termux أم PowerShell/Windows Terminal.
+
+والجواب: هذه الخطوة تُنفَّذ داخل Windows، وليس داخل Termux.
+
+وبحسب الصورة عندك، اسم مستخدم Windows هو Him Rf وعنوان الجهاز هو 192.168.11.101.
+
+1. لا تنسخ المفتاح الخاص إلى Windows
+
+لا نحتاج إلى نقل:
+
+id_ed25519
+
+من Termux إلى Windows. هذا هو Private Key، ومن الأفضل أن يبقى في الهاتف.
+
+الذي نحتاج نقله فقط هو:
+
+id_ed25519.pub
+
+وهو Public Key.
+
+
+---
+
+2. إنشاء مجلد .ssh في Windows
+
+افتح PowerShell داخل Windows. سواء فتحته من:
+
+PowerShell مباشرة
+
+أو Windows Terminal واخترت PowerShell
+
+
+كلاهما صحيح.
+
+ثم نفّذ:
+
+New-Item -ItemType Directory -Path "$env:USERPROFILE\.ssh" -Force
+
+إذا لم يظهر خطأ، فقد تم إنشاء:
+
+C:\Users\Him Rf\.ssh
+
+ملاحظة: لا تكتب Him Rf يدويًا في الأمر؛ $env:USERPROFILE يتولى ذلك تلقائيًا.
+
+يمكنك التأكد بالأمر:
+
+Get-ChildItem "$env:USERPROFILE\.ssh"
+
+
+---
+
+3. إنشاء ملف authorized_keys
+
+الآن في PowerShell على Windows نفّذ:
+
+New-Item -ItemType File -Path "$env:USERPROFILE\.ssh\authorized_keys" -Force
+
+ثم افتحه:
+
+notepad "$env:USERPROFILE\.ssh\authorized_keys"
+
+سيُفتح Notepad.
+
+
+---
+
+4. ماذا نضع داخل الملف؟
+
+ارجع إلى Termux في الهاتف ونفّذ:
+
+cat ~/.ssh/id_ed25519.pub
+
+سيظهر سطر طويل يبدأ تقريبًا بـ:
+
+ssh-ed25519 AAAA...
+
+انسخ هذا السطر كاملًا.
+
+ثم ارجع إلى Notepad المفتوح في Windows والصقه داخل:
+
+authorized_keys
+
+ثم احفظ الملف.
+
+أي أن الشكل النهائي يكون تقريبًا:
+
+C:\Users\Him Rf\.ssh\
+                       └── authorized_keys
+
+وداخل authorized_keys يوجد المفتاح العام الذي جاء من Termux.
+
+
+---
+
+5. نقطة مهمة جدًا بخصوص كلامك عن "نسخ ملف SSH"
+
+إذا كنت تقصد أنك تريد نسخ ملف id_ed25519 نفسه من Termux إلى Windows واستخدامه هناك: لا أنصح بذلك.
+
+الترتيب الصحيح هو:
+
+الهاتف / Termux
+│
+├── id_ed25519       ← 🔴 Private Key — يبقى في الهاتف
+│
+└── id_ed25519.pub   ← 🟢 Public Key — ننسخ محتواه إلى Windows
+                              │
+                              ▼
+                    Windows authorized_keys
+
+وبعدها عندما يعمل SSH:
+
+Termux
+  │
+  │  ssh Him Rf@192.168.11.101
+  ▼
+Windows sshd
+  │
+  └── يتحقق من المفتاح العام
+
+وبذلك المفتاح الخاص لا يغادر الهاتف أصلًا.
+
+وبالنسبة للصورة التي أرسلتها
+
+كل شيء عندك يبدو جاهزًا من ناحية SSH:
+
+sshd = Running ✅
+
+الخدمة مضبوطة على التشغيل التلقائي ✅
+
+Firewall الخاص بـ OpenSSH موجود ومفعّل ✅
+
+IP الحاسوب = 192.168.11.101 ✅
+
+
+إذن لا نحتاج أن نعيد إعداد SSH من البداية. نحتاج الآن فقط إنشاء:
+
+C:\Users\Him Rf\.ssh\authorized_keys
+
+ووضع محتوى id_ed25519.pub بداخله.
+
+إذا أردت نمشيها معًا بدون أي تخمين، نفّذ الآن فقط هذا الأمر في PowerShell على Windows:
+
+New-Item -ItemType Directory -Path "$env:USERPROFILE\.ssh" -Force
+
+ثم أخبرني ماذا ظهر لك بالضبط، وبعدها أعطيك الأمر التالي فقط.
