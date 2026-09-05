@@ -49,3 +49,8 @@ ssh 'Him Rf'@192.168.11.101
 
 إذا طلب كلمة المرور مرة أخرى، لا تدخلها؛ أرسل لي فقط ما يظهر، وسنكمل من النقطة نفسها.
 Test-Path "C:\ProgramData\ssh\administrators_authorized_keys"
+
+ا 
+
+
+Test-Path "C:\ProgramData\ssh\administrators_authorized_keys"
