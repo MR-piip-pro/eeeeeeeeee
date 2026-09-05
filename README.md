@@ -27,3 +27,4 @@ TcpTestSucceeded : False
 ولا نعمل أي شيء آخر الآن.
 
 وبالمناسبة، لا تحتاج نقل ملف id_ed25519 إلى Windows. إذا أردنا تسجيل الدخول بدون كلمة مرور لاحقًا، يكفي وضع المفتاح العام .pub في المكان الصحيح.
+Set-NetConnectionProfile -InterfaceAlias "Wi-Fi" -NetworkCategory Private
