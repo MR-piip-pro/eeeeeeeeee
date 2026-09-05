@@ -577,3 +577,13 @@ text
 ~/.ssh/id_ed25519
 
 🔴 لا تفتحه ولا تنسخه ولا ترسله لي أو لأي شخص.
+
+
+
+
+
+
+
+
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBuHMb4Pz5XhkL4qalU39jMIVOmA0FBt48/XUC6klCGe u0_a1165@localhost
+
